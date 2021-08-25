@@ -27,10 +27,4 @@ import * as Discord from "discord.js";
 import { Client } from "./Structures/Client.js";
 import { Command } from "./Structures/Command.js";
 import { Event } from "./Structures/Event.js";
-import { join } from "path";
 export { Discord, Client, Command, Event };
-const client = new Client({
-    config: join(process.cwd(), "src", "Data", "config.json"),
-    commands: join(process.cwd(), "src", "Commands"),
-    events: join(process.cwd(), "src", "Events")
-});

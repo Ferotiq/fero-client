@@ -45,7 +45,6 @@ interface ClientOptions extends Discord.ClientOptions {
 	prefix: string;
 	commandLoadedMessage?: boolean;
 	eventLoadedMessage?: boolean;
-	emitMessageOnInteraction?: boolean;
 	builtInHelpCommand?: HelpCommandStyle;
 	deleteUnusedSlashCommands?: boolean;
 	permissionData?: object;
@@ -130,18 +129,20 @@ export class Client extends Discord.Client {
 	public modules: object;
 	public permissionData: object;
 	private constructors = {
-		string: (string: string) => string,
-		mstring: (string: string, m, rest: string[]) =>
+		string: (client: Client, string: string) => string,
+		mstring: (client: Client, string: string, m, rest: string[]) =>
 			string + " " + rest.join(" "),
-		char: (string: string) => string?.substring(0, 1) ?? null,
-		number: (string: string) => parseFloat(string),
-		int: (string: string) => parseInt(string),
-		float: (string: string) => parseFloat(string),
-		boolean: (string: string) =>
+		char: (client: Client, string: string) =>
+			string?.substring(0, 1) ?? null,
+		number: (client: Client, string: string) => parseFloat(string),
+		int: (client: Client, string: string) => parseInt(string),
+		float: (client: Client, string: string) => parseFloat(string),
+		boolean: (client: Client, string: string) =>
 			string == null ? null : !falsy.includes(string),
-		color: (color: Discord.ColorResolvable) =>
+		color: (client: Client, color: Discord.ColorResolvable) =>
 			Discord.Util.resolveColor(color),
-		guild: (string: string) => this.guilds.cache.get(string),
+		guild: (client: Client, string: string) =>
+			this.guilds.cache.get(string),
 		member: resolveMember,
 		user: resolveUser,
 		channel: resolveChannel,
@@ -185,26 +186,34 @@ export class Client extends Discord.Client {
 
 		this.defaultPrefix = config.prefix;
 
+		if (!config.tokenName)
+			throw new FDCError(
+				"A token name in the config.json was not provided."
+			);
+
 		if (!process.env[config.tokenName || "TOKEN"])
 			throw new FDCError(`No .env ${config.tokenName} was provided.`);
 
 		const {
 			commandLoadedMessage,
 			eventLoadedMessage,
-			emitMessageOnInteraction,
 			builtInHelpCommand,
 			deleteUnusedSlashCommands
 		} = config;
 
 		this.commandLoadedMessage = commandLoadedMessage;
 		this.eventLoadedMessage = eventLoadedMessage;
-		this.emitMessageOnInteraction = emitMessageOnInteraction;
 		this.builtInHelpCommand = builtInHelpCommand;
 		this.deleteUnusedSlashCommands = deleteUnusedSlashCommands;
 
 		this.paths = paths;
 
 		this.modules = modules;
+
+		if (!config.permissionData)
+			throw new FDCError(
+				"Permission data in the config.json was not provided."
+			);
 
 		this.permissionData = config.permissionData;
 
@@ -268,6 +277,8 @@ export class Client extends Discord.Client {
 			.map(cmd => (cmd as CommandImport)?.command ?? (cmd as Command));
 
 		commands.forEach(cmd => {
+			if (!this.commandCategories.includes(cmd.category))
+				this.commandCategories.push(cmd.category);
 			this.commands.set(cmd.name, cmd);
 			const slashCommand = slashCommands.find(
 				c => c.name.toLowerCase() == cmd.name.toLowerCase()

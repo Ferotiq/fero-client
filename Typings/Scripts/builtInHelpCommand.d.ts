@@ -23,6 +23,6 @@
  *
  * @format
  */
-import { Client } from "../Structures/Client";
-import { Command } from "../Structures/Command";
+import { Client } from "../Structures/Client.js";
+import { Command } from "../Structures/Command.js";
 export declare function builtInHelpCommand(client: Client): Command;

@@ -24,8 +24,8 @@
  * @format
  */
 
-import { Client } from "../Structures/Client";
-import { Command } from "../Structures/Command";
+import { Client } from "../Structures/Client.js";
+import { Command } from "../Structures/Command.js";
 import * as Discord from "discord.js";
 
 export function builtInHelpCommand(client: Client) {
@@ -123,7 +123,7 @@ export function builtInHelpCommand(client: Client) {
 											? v
 													.toLowerCase()
 													.split(/_+/)
-													.map(v2 => camelCase(v2))
+													.map(v2 => pascalCase(v2))
 													.join(" ")
 											: "Permissions Object"
 									)

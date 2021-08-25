@@ -1,6 +1,6 @@
 {
 	"name": "fero-dc",
-	"version": "2.0.0-alpha",
+	"version": "2.0.0-beta",
 	"main": "dist/index.js",
 	"type": "module",
 	"types": "Typings/index.d.ts",
