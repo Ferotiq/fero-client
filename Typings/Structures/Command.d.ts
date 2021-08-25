@@ -1,0 +1,66 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) 2021 Ferotiq
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * @format
+ */
+import * as Discord from "discord.js";
+import { Client } from "./Client";
+declare type Perm = Discord.PermissionString | Discord.Permissions | string;
+declare type Permission = Perm | Perm[];
+declare type ArgumentType = "string" | "mstring" | "char" | "number" | "int" | "float" | "boolean" | "color" | "guild" | "member" | "user" | "channel" | "message" | "invite" | "emoji" | "role" | "permission" | "time" | "command";
+declare type Argument = {
+    name: string;
+    description: string;
+    required: boolean;
+    type: ArgumentType;
+};
+declare type CommandType = "BOTH" | "TEXT" | "SLASH";
+interface CommandOptions {
+    name: string;
+    description?: string;
+    aliases: string[];
+    permissions: Permission[];
+    type: CommandType;
+    category?: string;
+    usage?: string;
+    args?: Argument[];
+    slashCommandOptions?: Discord.ApplicationCommandOption[];
+}
+declare type CommandFunction = (message: Discord.Message, args: string[], client: Client, ...extra: any[]) => any;
+export declare class Command implements CommandOptions {
+    name: string;
+    description: string;
+    aliases: string[];
+    permissions: Permission[];
+    type: CommandType;
+    category: string;
+    usage?: string;
+    args: Argument[];
+    slashCommandOptions?: Discord.ApplicationCommandOption[];
+    run: CommandFunction;
+    constructor(options: CommandOptions, runFunction: CommandFunction);
+    isSlash(): boolean;
+    isText(): boolean;
+    isBoth(): boolean;
+}
+export {};

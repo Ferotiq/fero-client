@@ -1,70 +1,20 @@
 {
-	"_from": "fero-dc",
-	"_id": "fero-dc@1.6.0",
-	"_inBundle": false,
-	"_integrity": "sha512-GoK1jHb9XWmmWmSg2rcCLESuSGueA+HHBi4wI2ssy8RVLBjAUxYz6NViLGpRviSY4BpKXSbqOngEk2IsqtOfaw==",
-	"_location": "/fero-dc",
-	"_phantomChildren": {
-		"@discordjs/collection": "0.1.6",
-		"@discordjs/form-data": "3.0.1",
-		"abort-controller": "3.0.0",
-		"node-fetch": "2.6.1",
-		"setimmediate": "1.0.5",
-		"tweetnacl": "1.0.3",
-		"ws": "7.4.4"
-	},
-	"_requested": {
-		"type": "tag",
-		"registry": true,
-		"raw": "fero-dc",
-		"name": "fero-dc",
-		"escapedName": "fero-dc",
-		"rawSpec": "",
-		"saveSpec": null,
-		"fetchSpec": "latest"
-	},
-	"_requiredBy": [
-		"#USER",
-		"/"
-	],
-	"_resolved": "https://registry.npmjs.org/fero-dc/-/fero-dc-1.6.0.tgz",
-	"_shasum": "7fe38395f3e6ef0469f706a5e3ac7de217b5f26d",
-	"_spec": "fero-dc",
-	"author": {
-		"name": "Ferotiq",
-		"email": "ferotiq@gmail.com",
-		"url": "https://www.youtube.com/Ferotiq"
-	},
-	"bugs": {
-		"url": "https://github.com/Ferotiq/fero-dc/issues"
-	},
-	"bundleDependencies": false,
+	"name": "fero-dc",
+	"version": "2.0.0-alpha",
+	"main": "dist/index.js",
+	"type": "module",
+	"types": "Typings/index.d.ts",
+	"author": "Ferotiq",
+	"license": "MIT",
 	"dependencies": {
 		"colors": "^1.4.0",
-		"discord-buttons": "^3.1.1",
-		"discord-slash-commands-client": "^1.1.1",
-		"discord.js": "^12.5.3",
-		"fero-ms": "^1.0.2"
+		"discord.js": "^13.1.0",
+		"dotenv": "^10.0.0",
+		"fero-ms": "^1.0.2",
+		"typescript": "^4.3.5"
 	},
-	"deprecated": false,
-	"description": "Ultimate classes and methods to organize the client, commands, events, and more for your discord bot.",
-	"homepage": "https://github.com/Ferotiq/fero-dc#readme",
-	"license": "MIT",
-	"main": "src/index.js",
-	"name": "fero-dc",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/Ferotiq/fero-dc.git"
-	},
-	"version": "1.6.0",
-	"keywords": [
-		"ferotiq",
-		"discord.js",
-		"client",
-		"discord.js client",
-		"advanced",
-		"advanced client",
-		"advanced discord.js client",
-		"discord"
-	]
+	"engines": {
+		"node": ">=16.6.0",
+		"npm": ">=7.0.0"
+	}
 }
