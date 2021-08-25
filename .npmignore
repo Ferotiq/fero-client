@@ -5,3 +5,5 @@ src/Subcommands
 src/Data
 .vscode
 .git
+.env
+config.json
